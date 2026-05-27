@@ -86,9 +86,9 @@ h1.title-main {
 
 /* Layout */
 .container {
-  max-width: 1200px;
+  max-width: 1400px;
   margin: 0 auto;
-  padding: 0 2rem;
+  padding: 0 4rem;
 }
 
 /* Navigation */
@@ -118,14 +118,14 @@ h1.title-main {
   top: 0;
   right: 0;
   bottom: 0;
-  left: 50%;
-  background-image: url('https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=2564&auto=format&fit=crop'); 
+  left: 0;
+  background-image: url('/hero-bg.png'); 
   background-size: cover;
   background-position: center;
-  opacity: 0.3;
+  opacity: 0.35;
   z-index: -1;
-  mask-image: linear-gradient(to right, transparent, black);
-  -webkit-mask-image: linear-gradient(to right, transparent, black);
+  mask-image: radial-gradient(circle at 75% 50%, black 10%, transparent 100%);
+  -webkit-mask-image: radial-gradient(circle at 75% 50%, black 10%, transparent 100%);
 }
 
 /* Stats */

@@ -122,7 +122,7 @@ function App() {
 
   return (
     <>
-      <div className="container" style={{maxWidth: '1000px'}}>
+      <div className="container hero-container">
         <nav className="navbar">
           <div className="logo">Aurelian</div>
           <div>
@@ -279,7 +279,7 @@ function App() {
         </div>
       </section>
 
-      <div className="container" style={{maxWidth: '1000px'}}>
+      <div className="container footer-container">
         <section className="app-section">
           <svg className="app-icon" viewBox="0 0 135 40" fill="none" xmlns="http://www.w3.org/2000/svg">
             <rect width="135" height="40" rx="8" fill="#000" stroke="#fff" strokeWidth="1"/>
