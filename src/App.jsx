@@ -1,98 +1,100 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { TrendingUp, ShieldCheck, Building2, ChevronRight, ArrowRight, LineChart, Globe } from 'lucide-react';
+import { TrendingUp, ShieldCheck, Globe, ArrowRight, ArrowUpRight } from 'lucide-react';
 import './index.css';
 
 export default function App() {
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 50);
-    };
+    const handleScroll = () => setScrolled(window.scrollY > 40);
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   return (
-    <div className="min-h-screen bg-[var(--color-alabaster)] text-[var(--color-charcoal)] font-sans">
+    <div className="min-h-screen bg-[var(--color-obsidian)] text-[var(--color-ivory)] selection:bg-[var(--color-gold)] selection:text-black">
       
       {/* NAVBAR */}
-      <nav className={`fixed w-full z-50 transition-all duration-300 ${scrolled ? 'nav-blur py-4' : 'bg-transparent py-6'}`}>
-        <div className="max-w-7xl mx-auto px-6 lg:px-8 flex justify-between items-center">
-          <div className="flex items-center gap-2">
-            <div className={`w-8 h-8 rounded flex items-center justify-center ${scrolled ? 'bg-[var(--color-forest-900)]' : 'bg-white'}`}>
-              <span className={`font-serif font-bold text-lg ${scrolled ? 'text-white' : 'text-[var(--color-forest-900)]'}`}>A</span>
+      <nav className={`fixed top-0 w-full z-50 transition-all duration-300 ${scrolled ? 'glass-nav py-4' : 'bg-transparent py-6'}`}>
+        <div className="max-w-7xl mx-auto px-6 lg:px-12 flex justify-between items-center">
+          
+          {/* Logo */}
+          <div className="flex items-center gap-3">
+            <div className="w-8 h-8 flex items-center justify-center border border-[var(--color-gold)] rounded-sm bg-[var(--color-surface)]">
+              <span className="font-serif font-bold text-lg text-[var(--color-gold)]">A</span>
             </div>
-            <span className={`font-serif text-xl tracking-wide font-medium ${scrolled ? 'text-[var(--color-forest-900)]' : 'text-white'}`}>
+            <span className="font-serif text-2xl tracking-wide font-medium text-[var(--color-ivory)]">
               Aurelian
             </span>
           </div>
           
-          <div className={`hidden md:flex gap-8 text-sm font-medium ${scrolled ? 'text-[var(--color-charcoal)]' : 'text-white/90'}`}>
-            <a href="#" className="hover:text-[var(--color-copper)] transition-colors">Philosophy</a>
-            <a href="#" className="hover:text-[var(--color-copper)] transition-colors">Private Syndicates</a>
-            <a href="#" className="hover:text-[var(--color-copper)] transition-colors">Sovereignty</a>
-            <a href="#" className="hover:text-[var(--color-copper)] transition-colors">Insights</a>
+          {/* Links */}
+          <div className="hidden md:flex gap-8 text-[13px] tracking-wide uppercase font-medium text-[var(--color-muted)]">
+            <a href="#" className="hover:text-[var(--color-gold)] transition-colors">Philosophy</a>
+            <a href="#" className="hover:text-[var(--color-gold)] transition-colors">Syndicates</a>
+            <a href="#" className="hover:text-[var(--color-gold)] transition-colors">Sovereignty</a>
+            <a href="#" className="hover:text-[var(--color-gold)] transition-colors">Insights</a>
           </div>
 
-          <button className={`px-6 py-2.5 text-sm font-medium rounded transition-all ${scrolled ? 'bg-[var(--color-copper)] text-white hover:bg-[var(--color-copper-hover)]' : 'bg-white text-[var(--color-forest-900)] hover:bg-white/90'}`}>
+          {/* CTA */}
+          <button className="px-6 py-2.5 text-sm font-medium rounded-sm border border-[var(--color-gold)] text-[var(--color-gold)] hover:bg-[var(--color-gold)] hover:text-black transition-all">
             Client Portal
           </button>
         </div>
       </nav>
 
       {/* HERO SECTION */}
-      <section className="relative hero-gradient pt-32 pb-48 lg:pt-48 lg:pb-64 px-6 lg:px-8 overflow-hidden">
-        {/* Subtle grid pattern overlay */}
-        <div className="absolute inset-0 opacity-[0.03]" style={{ backgroundImage: 'linear-gradient(var(--color-alabaster) 1px, transparent 1px), linear-gradient(90deg, var(--color-alabaster) 1px, transparent 1px)', backgroundSize: '40px 40px' }}></div>
-        
-        <div className="max-w-7xl mx-auto relative z-10 text-center">
+      <section className="relative hero-glow min-h-[90vh] flex flex-col justify-center pt-32 pb-24 px-6 lg:px-12">
+        <div className="max-w-5xl mx-auto text-center relative z-10">
           <motion.div 
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
+            transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
           >
-            <span className="text-[var(--color-copper)] text-sm tracking-widest uppercase font-medium mb-6 block">
+            <span className="text-[var(--color-gold)] text-[11px] tracking-[0.3em] uppercase font-semibold mb-8 block">
               Institutional Wealth Management
             </span>
-            <h1 className="text-4xl md:text-6xl lg:text-7xl font-serif text-white max-w-4xl mx-auto leading-tight mb-8">
+            
+            <h1 className="text-5xl md:text-7xl lg:text-8xl font-serif text-[var(--color-ivory)] leading-[1.1] mb-8">
               Capital, Architected for Generations.
             </h1>
-            <p className="text-white/70 text-lg md:text-xl max-w-2xl mx-auto mb-10 font-light leading-relaxed">
-              We merge institutional-grade infrastructure with algorithmic precision to architect, protect, and scale legacy wealth for the world's most discerning families.
+            
+            <p className="text-[var(--color-muted)] text-lg md:text-xl max-w-2xl mx-auto mb-12 font-light leading-relaxed">
+              We merge institutional-grade infrastructure with algorithmic precision to protect and scale legacy wealth for the world's most discerning families.
             </p>
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-              <button className="bg-[var(--color-copper)] hover:bg-[var(--color-copper-hover)] text-white px-8 py-3.5 rounded font-medium transition-colors flex items-center gap-2">
+            
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
+              <button className="w-full sm:w-auto bg-[var(--color-gold)] hover:bg-[var(--color-gold-hover)] text-black px-8 py-4 rounded-sm font-medium transition-colors flex items-center justify-center gap-3">
                 Request Private Access <ArrowRight size={18} />
               </button>
-              <button className="text-white hover:text-[var(--color-copper)] px-8 py-3.5 font-medium transition-colors">
-                Explore Our Philosophy
+              <button className="w-full sm:w-auto text-[var(--color-muted)] hover:text-[var(--color-gold)] px-8 py-4 font-medium transition-colors flex items-center justify-center gap-3">
+                Explore Philosophy
               </button>
             </div>
           </motion.div>
         </div>
       </section>
 
-      {/* OVERLAPPING VALUE CARDS */}
-      <section className="max-w-7xl mx-auto px-6 lg:px-8 relative z-20 -mt-24 lg:-mt-32 mb-24">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+      {/* 3-COLUMN VALUE CARDS */}
+      <section className="max-w-7xl mx-auto px-6 lg:px-12 relative z-20 pb-32">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
           
           <ValueCard 
-            delay={0.1}
-            icon={<TrendingUp size={28} className="text-[var(--color-copper)]" />}
-            title="Algorithmic Yield"
-            description="Proprietary quantitative forecasting and alternative asset syndication designed to outpace market volatility."
-          />
-          <ValueCard 
             delay={0.2}
-            icon={<ShieldCheck size={28} className="text-[var(--color-copper)]" />}
-            title="Cryptographic Custody"
-            description="Military-grade cold storage and multi-signature enclave protocols ensuring absolute capital sovereignty."
+            icon={<TrendingUp size={24} className="text-[var(--color-gold)]" />}
+            title="Algorithmic Yield"
+            description="Proprietary quantitative forecasting and alternative asset syndication designed to dynamically outpace market volatility."
           />
           <ValueCard 
-            delay={0.3}
-            icon={<Globe size={28} className="text-[var(--color-copper)]" />}
+            delay={0.4}
+            icon={<ShieldCheck size={24} className="text-[var(--color-gold)]" />}
+            title="Cryptographic Custody"
+            description="Military-grade cold storage and multi-signature enclave protocols ensuring absolute, immutable capital sovereignty."
+          />
+          <ValueCard 
+            delay={0.6}
+            icon={<Globe size={24} className="text-[var(--color-gold)]" />}
             title="Global Sovereignty"
             description="Real-time jurisdictional arbitrage and stateless wealth architecture for borderless legacy preservation."
           />
@@ -100,96 +102,117 @@ export default function App() {
         </div>
       </section>
 
-      {/* OUR FINANCIAL SOLUTIONS */}
-      <section className="py-24 bg-white">
-        <div className="max-w-7xl mx-auto px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-5xl font-serif text-[var(--color-forest-900)] mb-4">Strategic Frameworks</h2>
-            <p className="text-[var(--color-gray-text)] max-w-2xl mx-auto text-lg">
+      {/* STRATEGIC FRAMEWORKS (ZIG-ZAG LAYOUT) */}
+      <section className="py-32 bg-[var(--color-obsidian)] border-t border-[var(--color-surface)]">
+        <div className="max-w-7xl mx-auto px-6 lg:px-12">
+          
+          <div className="text-center mb-24">
+            <h2 className="text-4xl md:text-5xl font-serif text-[var(--color-ivory)] mb-6">Strategic Frameworks</h2>
+            <p className="text-[var(--color-muted)] max-w-2xl mx-auto text-lg leading-relaxed">
               Comprehensive institutional infrastructure tailored for visionary capital and complex family offices.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <SolutionCard 
-              image="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?auto=format&fit=crop&q=80&w=800"
-              icon={<Building2 size={24} className="text-white" />}
-              title="Family Office Structuring"
-              desc="Comprehensive multi-generational governance, tax harmonization, and philanthropic vehicle establishment."
-            />
-            <SolutionCard 
-              image="https://images.unsplash.com/photo-1590283603385-17ffb3a7f29f?auto=format&fit=crop&q=80&w=800"
-              icon={<LineChart size={24} className="text-white" />}
-              title="Private Market Syndication"
-              desc="Exclusive access to late-stage venture, pre-IPO liquidity, and sovereign debt instruments."
-            />
-            <SolutionCard 
-              image="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&q=80&w=800"
-              icon={<ShieldCheck size={24} className="text-white" />}
-              title="Digital Asset Sovereignty"
-              desc="Institutional curation and cryptographic custody for high-conviction digital asset portfolios."
-            />
+          <div className="space-y-32">
+            {/* Feature 1: Image Left, Text Right */}
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-center">
+              <div className="h-[400px] lg:h-[500px] rounded-sm overflow-hidden gold-border-subtle relative group">
+                <img src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?auto=format&fit=crop&q=80&w=1200" alt="Architecture" className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105" />
+                <div className="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors duration-500"></div>
+              </div>
+              <div>
+                <div className="w-12 h-12 rounded-sm bg-[var(--color-surface)] border border-[var(--color-gold)]/20 flex items-center justify-center mb-8">
+                  <span className="text-[var(--color-gold)] font-serif font-bold">01</span>
+                </div>
+                <h3 className="text-3xl font-serif text-[var(--color-ivory)] mb-6">Family Office Structuring</h3>
+                <p className="text-[var(--color-muted)] text-lg leading-relaxed mb-8">
+                  We architect comprehensive multi-generational governance models. Our systems ensure seamless tax harmonization, philanthropic vehicle establishment, and frictionless generational transfer.
+                </p>
+                <a href="#" className="inline-flex items-center gap-2 text-[var(--color-gold)] font-medium text-sm group uppercase tracking-widest">
+                  View Framework <ArrowUpRight size={16} className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+                </a>
+              </div>
+            </div>
+
+            {/* Feature 2: Text Left, Image Right */}
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-center">
+              <div className="order-2 lg:order-1">
+                <div className="w-12 h-12 rounded-sm bg-[var(--color-surface)] border border-[var(--color-gold)]/20 flex items-center justify-center mb-8">
+                  <span className="text-[var(--color-gold)] font-serif font-bold">02</span>
+                </div>
+                <h3 className="text-3xl font-serif text-[var(--color-ivory)] mb-6">Private Market Syndication</h3>
+                <p className="text-[var(--color-muted)] text-lg leading-relaxed mb-8">
+                  Exclusive access to late-stage venture, pre-IPO liquidity, and sovereign debt instruments. Our network bypasses traditional gatekeepers to secure asymmetric upside.
+                </p>
+                <a href="#" className="inline-flex items-center gap-2 text-[var(--color-gold)] font-medium text-sm group uppercase tracking-widest">
+                  Explore Syndicates <ArrowUpRight size={16} className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+                </a>
+              </div>
+              <div className="order-1 lg:order-2 h-[400px] lg:h-[500px] rounded-sm overflow-hidden gold-border-subtle relative group">
+                <img src="https://images.unsplash.com/photo-1590283603385-17ffb3a7f29f?auto=format&fit=crop&q=80&w=1200" alt="Markets" className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105" />
+                <div className="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors duration-500"></div>
+              </div>
+            </div>
           </div>
+
         </div>
       </section>
 
-      {/* BOTTOM CTA / CONTACT */}
-      <section className="py-24 bg-[var(--color-forest-900)] text-white relative overflow-hidden">
-        <div className="absolute top-0 right-0 w-1/2 h-full bg-[var(--color-forest-800)] skew-x-[-15deg] translate-x-32 hidden lg:block pointer-events-none"></div>
-        
-        <div className="max-w-7xl mx-auto px-6 lg:px-8 relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+      {/* BOTTOM CTA & FORM */}
+      <section className="py-32 bg-[var(--color-surface)] border-t border-[var(--color-gold)]/10">
+        <div className="max-w-7xl mx-auto px-6 lg:px-12 grid grid-cols-1 lg:grid-cols-2 gap-20 items-start">
           
-          <div>
-            <span className="text-[var(--color-copper)] text-sm tracking-widest uppercase font-medium mb-4 block">
+          <div className="pr-0 lg:pr-12">
+            <span className="text-[var(--color-gold)] text-[11px] tracking-[0.3em] uppercase font-semibold mb-6 block">
               Initiate Dialogue
             </span>
-            <h2 className="text-3xl md:text-5xl font-serif mb-6 leading-tight">
+            <h2 className="text-4xl md:text-5xl font-serif mb-8 leading-tight text-[var(--color-ivory)]">
               Secure Your Generational Vault.
             </h2>
-            <p className="text-white/70 text-lg mb-10 max-w-md">
+            <p className="text-[var(--color-muted)] text-lg mb-12">
               Our syndicates operate strictly by invitation or qualified application. Request a private briefing with our quantitative directors to discuss your capital objectives.
             </p>
             
-            <div className="space-y-6">
-              <div className="flex gap-4 items-start">
-                <div className="w-8 h-8 rounded-full bg-[var(--color-forest-800)] flex items-center justify-center shrink-0 mt-1 text-[var(--color-copper)] text-sm font-bold">1</div>
+            <div className="space-y-8">
+              <div className="flex gap-6 items-start">
+                <div className="w-10 h-10 rounded-sm bg-[var(--color-obsidian)] border border-[var(--color-gold)]/20 flex items-center justify-center shrink-0 text-[var(--color-gold)] font-serif font-bold">I</div>
                 <div>
-                  <h4 className="text-xl font-serif mb-1">Confidential Qualification</h4>
-                  <p className="text-white/60 text-sm">Initial assessment of capital sovereignty requirements.</p>
+                  <h4 className="text-xl font-serif mb-2 text-[var(--color-ivory)]">Confidential Qualification</h4>
+                  <p className="text-[var(--color-muted)] text-sm leading-relaxed">Initial cryptographic assessment of capital sovereignty requirements and deployment scale.</p>
                 </div>
               </div>
-              <div className="flex gap-4 items-start">
-                <div className="w-8 h-8 rounded-full bg-[var(--color-forest-800)] flex items-center justify-center shrink-0 mt-1 text-[var(--color-copper)] text-sm font-bold">2</div>
+              <div className="flex gap-6 items-start">
+                <div className="w-10 h-10 rounded-sm bg-[var(--color-obsidian)] border border-[var(--color-gold)]/20 flex items-center justify-center shrink-0 text-[var(--color-gold)] font-serif font-bold">II</div>
                 <div>
-                  <h4 className="text-xl font-serif mb-1">Architectural Proposal</h4>
-                  <p className="text-white/60 text-sm">Custom algorithmic and custody framework design.</p>
+                  <h4 className="text-xl font-serif mb-2 text-[var(--color-ivory)]">Architectural Proposal</h4>
+                  <p className="text-[var(--color-muted)] text-sm leading-relaxed">Custom algorithmic and custody framework design tailored to your specific tax jurisdiction.</p>
                 </div>
               </div>
             </div>
           </div>
 
-          <div className="bg-white rounded-xl p-8 lg:p-10 card-shadow text-[var(--color-charcoal)]">
-            <h3 className="text-2xl font-serif mb-6 text-[var(--color-forest-900)]">Request Private Briefing</h3>
-            <form className="space-y-5">
-              <div className="grid grid-cols-2 gap-5">
+          <div className="bg-[var(--color-obsidian)] rounded-sm p-8 lg:p-12 gold-border-subtle">
+            <h3 className="text-2xl font-serif mb-8 text-[var(--color-ivory)]">Request Private Briefing</h3>
+            <form className="space-y-6">
+              <div className="grid grid-cols-2 gap-6">
                 <div>
-                  <label className="block text-sm font-medium text-[var(--color-gray-text)] mb-1.5">First Name</label>
-                  <input type="text" className="w-full bg-[var(--color-gray-soft)] border-none rounded px-4 py-3 text-sm focus:ring-2 focus:ring-[var(--color-copper)] outline-none" />
+                  <label className="block text-xs font-medium text-[var(--color-muted)] uppercase tracking-wider mb-2">First Name</label>
+                  <input type="text" className="w-full bg-[var(--color-surface)] border border-[var(--color-surface-hover)] rounded-sm px-4 py-3 text-sm text-[var(--color-ivory)] focus:ring-1 focus:ring-[var(--color-gold)] focus:border-[var(--color-gold)] outline-none transition-all" />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-[var(--color-gray-text)] mb-1.5">Last Name</label>
-                  <input type="text" className="w-full bg-[var(--color-gray-soft)] border-none rounded px-4 py-3 text-sm focus:ring-2 focus:ring-[var(--color-copper)] outline-none" />
+                  <label className="block text-xs font-medium text-[var(--color-muted)] uppercase tracking-wider mb-2">Last Name</label>
+                  <input type="text" className="w-full bg-[var(--color-surface)] border border-[var(--color-surface-hover)] rounded-sm px-4 py-3 text-sm text-[var(--color-ivory)] focus:ring-1 focus:ring-[var(--color-gold)] focus:border-[var(--color-gold)] outline-none transition-all" />
                 </div>
               </div>
               <div>
-                <label className="block text-sm font-medium text-[var(--color-gray-text)] mb-1.5">Corporate Email</label>
-                <input type="email" className="w-full bg-[var(--color-gray-soft)] border-none rounded px-4 py-3 text-sm focus:ring-2 focus:ring-[var(--color-copper)] outline-none" />
+                <label className="block text-xs font-medium text-[var(--color-muted)] uppercase tracking-wider mb-2">Corporate Email</label>
+                <input type="email" className="w-full bg-[var(--color-surface)] border border-[var(--color-surface-hover)] rounded-sm px-4 py-3 text-sm text-[var(--color-ivory)] focus:ring-1 focus:ring-[var(--color-gold)] focus:border-[var(--color-gold)] outline-none transition-all" />
               </div>
               <div>
-                <label className="block text-sm font-medium text-[var(--color-gray-text)] mb-1.5">Capital Objective (Optional)</label>
-                <textarea rows="3" className="w-full bg-[var(--color-gray-soft)] border-none rounded px-4 py-3 text-sm focus:ring-2 focus:ring-[var(--color-copper)] outline-none resize-none"></textarea>
+                <label className="block text-xs font-medium text-[var(--color-muted)] uppercase tracking-wider mb-2">Capital Objective (Optional)</label>
+                <textarea rows="4" className="w-full bg-[var(--color-surface)] border border-[var(--color-surface-hover)] rounded-sm px-4 py-3 text-sm text-[var(--color-ivory)] focus:ring-1 focus:ring-[var(--color-gold)] focus:border-[var(--color-gold)] outline-none transition-all resize-none"></textarea>
               </div>
-              <button className="w-full bg-[var(--color-forest-900)] hover:bg-[var(--color-forest-800)] text-white py-3.5 rounded font-medium transition-colors mt-2">
+              <button className="w-full bg-[var(--color-gold)] hover:bg-[var(--color-gold-hover)] text-black py-4 rounded-sm font-medium transition-colors mt-4 tracking-wide">
                 Submit Inquiry
               </button>
             </form>
@@ -199,7 +222,7 @@ export default function App() {
       </section>
 
       {/* FOOTER */}
-      <footer className="bg-[#0A1A17] text-white/50 py-12 text-center text-sm">
+      <footer className="bg-[var(--color-obsidian)] border-t border-[var(--color-surface)] text-[var(--color-muted)] py-12 text-center text-xs tracking-widest uppercase">
         <p>© 2026 Aurelian Quantitative Wealth. Strict Confidentiality Maintained.</p>
       </footer>
     </div>
@@ -215,38 +238,18 @@ const ValueCard = ({ icon, title, description, delay }) => (
     initial={{ opacity: 0, y: 30 }}
     whileInView={{ opacity: 1, y: 0 }}
     viewport={{ once: true, margin: "-50px" }}
-    transition={{ duration: 0.6, delay }}
-    className="bg-white p-8 rounded-xl card-shadow border border-[var(--color-gray-soft)] hover:-translate-y-1 transition-transform duration-300"
+    transition={{ duration: 0.8, delay, ease: [0.16, 1, 0.3, 1] }}
+    className="bg-[var(--color-surface)] p-10 rounded-sm gold-border-subtle hover:-translate-y-2 transition-all duration-500 flex flex-col h-full"
   >
-    <div className="w-14 h-14 bg-[var(--color-alabaster)] rounded-lg flex items-center justify-center mb-6">
+    <div className="w-12 h-12 bg-[var(--color-obsidian)] rounded-sm border border-[var(--color-gold)]/20 flex items-center justify-center mb-8">
       {icon}
     </div>
-    <h3 className="text-xl font-serif text-[var(--color-forest-900)] mb-3">{title}</h3>
-    <p className="text-[var(--color-gray-text)] text-sm leading-relaxed mb-6">
+    <h3 className="text-xl font-serif text-[var(--color-ivory)] mb-4">{title}</h3>
+    <p className="text-[var(--color-muted)] text-[15px] leading-relaxed mb-8 flex-grow">
       {description}
     </p>
-    <a href="#" className="inline-flex items-center gap-2 text-[var(--color-copper)] font-medium text-sm group">
-      Discover More <ChevronRight size={16} className="group-hover:translate-x-1 transition-transform" />
+    <a href="#" className="inline-flex items-center gap-2 text-[var(--color-gold)] font-medium text-sm group uppercase tracking-widest mt-auto">
+      Explore <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
     </a>
   </motion.div>
-);
-
-const SolutionCard = ({ image, icon, title, desc }) => (
-  <div className="bg-[var(--color-alabaster)] rounded-xl overflow-hidden border border-[var(--color-gray-soft)] group">
-    <div className="h-48 overflow-hidden relative">
-      <img src={image} alt={title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
-      <div className="absolute -bottom-6 right-6 w-12 h-12 bg-[var(--color-copper)] rounded-full flex items-center justify-center shadow-lg">
-        {icon}
-      </div>
-    </div>
-    <div className="p-8 pt-10">
-      <h3 className="text-2xl font-serif text-[var(--color-forest-900)] mb-3">{title}</h3>
-      <p className="text-[var(--color-gray-text)] text-sm leading-relaxed mb-6">
-        {desc}
-      </p>
-      <button className="bg-[var(--color-copper)]/10 text-[var(--color-copper)] hover:bg-[var(--color-copper)] hover:text-white px-5 py-2 rounded text-sm font-medium transition-colors">
-        Learn More
-      </button>
-    </div>
-  </div>
 );
