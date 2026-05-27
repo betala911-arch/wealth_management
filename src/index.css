@@ -1,12 +1,12 @@
 @import "tailwindcss";
 
 @theme {
-  --color-obsidian: #000000;
-  --color-surface: #0A0A0A;
-  --color-surface-hover: #121212;
-  --color-gold: #D4AF37;
-  --color-gold-hover: #E5C158;
-  --color-ivory: #F5F2EB;
+  --color-obsidian: #0A0A0A;
+  --color-surface: #141414;
+  --color-surface-hover: #1A1A1A;
+  --color-gold: #B59A70;
+  --color-gold-hover: #D0B385;
+  --color-ivory: #EAE8E3;
   --color-muted: #888888;
 
   --font-serif: "Playfair Display", serif;
@@ -48,52 +48,11 @@ h1, h2, h3, h4, h5, h6 {
 
 @layer utilities {
   .hero-glow {
-    background: radial-gradient(circle at 50% 0%, rgba(212, 175, 55, 0.1) 0%, transparent 70%);
-  }
-  
-  .solid-nav {
-    background: #000000;
-    border-bottom: 1px solid rgba(212, 175, 55, 0.15);
-  }
-
-  .lux-border {
-    border: 1px solid rgba(255, 255, 255, 0.05);
-    box-shadow: 0 20px 40px -10px rgba(0,0,0,0.8);
+    background: radial-gradient(circle at 50% 0%, rgba(181, 154, 112, 0.08) 0%, transparent 60%);
   }
   
   .noise-bg {
     background-image: url('data:image/svg+xml;base64,PHN2ZyB2aWV3Qm94PSIwIDAgMjAwIDIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZmlsdGVyIGlkPSJub2lzZSI+PGZlVHVyYnVsZW5jZSB0eXBlPSJmcmFjdGFsTm9pc2UiIGJhc2VGcmVxdWVuY3k9IjAuODUiIG51bU9jdGF2ZXM9IjMiIHN0aXRjaFRpbGVzPSJzdGl0Y2giLz48L2ZpbHRlcj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWx0ZXI9InVybCgjbm9pc2UpIiBvcGFjaXR5PSIwLjA0Ii8+PC9zdmc+');
     background-repeat: repeat;
-  }
-
-  /* Pure CSS Architectural Graphics */
-  .css-graphic-grid {
-    background-size: 40px 40px;
-    background-image: linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
-                      linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
-    position: relative;
-  }
-  .css-graphic-grid::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: radial-gradient(circle at center, transparent 0%, #000000 80%);
-  }
-
-  .css-graphic-orb {
-    position: relative;
-    overflow: hidden;
-  }
-  .css-graphic-orb::before {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 300px;
-    height: 300px;
-    border-radius: 50%;
-    background: radial-gradient(circle, rgba(212,175,55,0.15) 0%, transparent 70%);
-    border: 1px solid rgba(212,175,55,0.2);
   }
 }
