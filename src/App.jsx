@@ -23,53 +23,6 @@ const FadeUp = ({ children, delay = 0, duration = 1.5, className = "", yOffset =
   );
 };
 
-const CustomCursor = () => {
-  const [position, setPosition] = useState({ x: 0, y: 0 });
-  const [isHovering, setIsHovering] = useState(false);
-
-  useEffect(() => {
-    const updatePosition = (e) => {
-      setPosition({ x: e.clientX, y: e.clientY });
-    };
-
-    const handleMouseOver = (e) => {
-      const isInteractive = e.target.tagName.toLowerCase() === 'a' || 
-                            e.target.tagName.toLowerCase() === 'button' || 
-                            e.target.tagName.toLowerCase() === 'input' || 
-                            e.target.tagName.toLowerCase() === 'select' || 
-                            e.target.closest('a') || 
-                            e.target.closest('button');
-      setIsHovering(isInteractive);
-    };
-
-    window.addEventListener('mousemove', updatePosition);
-    window.addEventListener('mouseover', handleMouseOver);
-
-    return () => {
-      window.removeEventListener('mousemove', updatePosition);
-      window.removeEventListener('mouseover', handleMouseOver);
-    };
-  }, []);
-
-  return (
-    <motion.div
-      className="fixed top-0 left-0 w-2 h-2 bg-champagne-accent rounded-full pointer-events-none z-[9999] mix-blend-difference"
-      animate={{
-        x: position.x - 4,
-        y: position.y - 4,
-        scale: isHovering ? 6 : 1,
-        opacity: isHovering ? 0.8 : 1
-      }}
-      transition={{
-        type: "spring",
-        stiffness: 400,
-        damping: 30,
-        mass: 0.5
-      }}
-    />
-  );
-};
-
 const DustParticles = () => {
   const [particles, setParticles] = useState([]);
 
@@ -113,7 +66,6 @@ export default function App() {
 
   return (
     <div className="bg-obsidian-deep font-sans relative selection:bg-champagne-accent selection:text-obsidian-deep">
-      <CustomCursor />
 
       {/* Act I: The Monolith */}
       <motion.header 
@@ -122,9 +74,9 @@ export default function App() {
         transition={{ duration: 2, ease: [0.16, 1, 0.3, 1] }}
         className="fixed top-0 left-0 right-0 z-50 mix-blend-difference"
       >
-        <div className="flex justify-between items-center w-full px-[24px] md:px-[80px] py-[8px] max-w-[1440px] mx-auto">
+        <div className="flex justify-between items-center w-full container mx-auto px-6 md:px-12 lg:px-24 py-4">
           <div className="font-display-lg text-headline-lg md:text-display-lg text-platinum-white tracking-tighter">AURELIAN</div>
-          <div className="hidden md:flex gap-[32px]">
+          <div className="hidden md:flex gap-12">
             {['MANIFESTO', 'CURATION', 'NARRATIVE'].map((item, i) => (
               <motion.a 
                 key={item}
@@ -172,12 +124,12 @@ export default function App() {
             <div className="absolute inset-0 bg-gradient-to-b from-obsidian-deep via-transparent to-obsidian-deep pointer-events-none"></div>
           </div>
           
-          <div className="relative z-10 text-center space-y-12 mt-12">
+          <div className="relative z-10 text-center space-y-12 mt-12 px-6">
             <motion.h1 
               initial={{ opacity: 0, scale: 0.95, filter: "blur(10px)" }}
               animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
               transition={{ duration: 3, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-              className="font-display-lg text-[12vw] md:text-[14vw] text-platinum-white leading-none tracking-[0.2em]"
+              className="font-display-lg text-6xl md:text-8xl lg:text-9xl text-platinum-white leading-none tracking-[0.2em]"
             >
               AURELIAN
             </motion.h1>
@@ -208,122 +160,126 @@ export default function App() {
         </section>
 
         {/* Act II: The Manifesto */}
-        <section id="manifesto" className="min-h-screen flex flex-col justify-center px-[24px] md:px-[80px] py-[256px] max-w-[1440px] mx-auto relative z-10">
-          <div className="max-w-4xl space-y-32">
-            <FadeUp delay={0.1} duration={2}>
-              <p className="font-headline-lg text-headline-lg text-platinum-white leading-relaxed">
-                India's sovereign trajectory is the emergence of a new global anchor. We transform this velocity into 'Generational Custody' for the modern Bharat.
-              </p>
-            </FadeUp>
-            <FadeUp delay={0.3} duration={2}>
-              <p className="font-headline-lg text-headline-lg text-platinum-white leading-relaxed">
-                Aurelian exists at the silent intersection of civilizational legacy and institutional scale. We preserve the silence required for the accumulation of true Indian wealth.
-              </p>
-            </FadeUp>
+        <section id="manifesto" className="min-h-screen flex flex-col justify-center py-48 md:py-64 relative z-10">
+          <div className="container mx-auto px-6 md:px-12 lg:px-24">
+            <div className="max-w-5xl mx-auto space-y-24 md:space-y-32 text-center md:text-left">
+              <FadeUp delay={0.1} duration={2}>
+                <p className="font-headline-lg text-3xl md:text-5xl text-platinum-white leading-[1.3] md:leading-relaxed">
+                  India's sovereign trajectory is the emergence of a new global anchor. We transform this velocity into 'Generational Custody' for the modern Bharat.
+                </p>
+              </FadeUp>
+              <FadeUp delay={0.3} duration={2}>
+                <p className="font-headline-lg text-3xl md:text-5xl text-platinum-white leading-[1.3] md:leading-relaxed">
+                  Aurelian exists at the silent intersection of civilizational legacy and institutional scale. We preserve the silence required for the accumulation of true Indian wealth.
+                </p>
+              </FadeUp>
+            </div>
           </div>
         </section>
 
         {/* Act III: The Curation */}
-        <section id="curation" className="py-[128px] px-[24px] md:px-[80px] max-w-[1440px] mx-auto relative z-10">
-          <FadeUp delay={0.1}>
-            <div className="font-label-caps text-label-caps text-champagne-accent mb-16 tracking-widest">THE THREE PILLARS</div>
-          </FadeUp>
-          
-          <div className="grid grid-cols-1 md:grid-cols-12 gap-[32px] items-start">
-            {/* Pillar 1 */}
-            <FadeUp delay={0.2} yOffset={40} className="md:col-span-4 group border-t border-hairline-stroke pt-12 space-y-8 hover:bg-charcoal-core/50 transition-colors duration-1000 p-6">
-              <div className="font-data-mono text-data-mono text-on-tertiary-container">01 // ALPHA</div>
-              <h3 className="font-headline-lg text-3xl text-platinum-white">Sovereign Alpha</h3>
-              <p className="font-body-md text-body-md text-on-surface-variant opacity-0 group-hover:opacity-100 transition-opacity duration-1000">
-                Navigating the structural transition from emerging market volatility to the stability of a sovereign creditor nation.
-              </p>
-              <div className="h-[300px] w-full overflow-hidden bg-charcoal-core">
-                <img alt="High-quality asset texture" className="w-full h-full object-cover grayscale brightness-50 group-hover:scale-105 group-hover:brightness-100 transition-all duration-[1500ms] ease-out" src="https://lh3.googleusercontent.com/aida/ADBb0ujlew-Ygc1phI9WAUjX9YRF4EsA9qEcTrM7IpsGkoMoq2008sOkSnxwQgTlsrlTMjr9lUNAeds4FlZmL9xSV26ebFCPUb8AaEg0YjzbKGZHUcSaDMYRNfinmWsrlCuV3AilegCDkxTXbwtzH5KLCpSjK7A1h050ou3AvEn6Dq8aRsu2Ei-J_olzyQvOIuu1yH3iSeOMot-x-gp_aGkkAvfGYpgOSwlXIwGOh8kzqDd1VVEMyRBjqWhKAEOx" />
-              </div>
+        <section id="curation" className="py-32 md:py-48 relative z-10">
+          <div className="container mx-auto px-6 md:px-12 lg:px-24">
+            <FadeUp delay={0.1}>
+              <div className="font-label-caps text-label-caps text-champagne-accent mb-20 tracking-widest text-center md:text-left">THE THREE PILLARS</div>
             </FadeUp>
+            
+            <div className="grid grid-cols-1 md:grid-cols-12 gap-16 md:gap-20 items-start">
+              {/* Pillar 1 */}
+              <FadeUp delay={0.2} yOffset={40} className="md:col-span-4 group border-t border-hairline-stroke pt-12 space-y-8 hover:bg-charcoal-core/50 transition-colors duration-1000 p-6 md:p-8 rounded-sm">
+                <div className="font-data-mono text-data-mono text-on-tertiary-container">01 // ALPHA</div>
+                <h3 className="font-headline-lg text-4xl text-platinum-white">Sovereign Alpha</h3>
+                <p className="font-body-md text-body-md text-on-surface-variant opacity-100 md:opacity-0 group-hover:opacity-100 transition-opacity duration-1000 leading-relaxed">
+                  Navigating the structural transition from emerging market volatility to the stability of a sovereign creditor nation.
+                </p>
+                <div className="h-[350px] w-full overflow-hidden bg-charcoal-core mt-8">
+                  <img alt="High-quality asset texture" className="w-full h-full object-cover grayscale brightness-50 group-hover:scale-105 group-hover:brightness-100 transition-all duration-[1500ms] ease-out" src="https://lh3.googleusercontent.com/aida/ADBb0ujlew-Ygc1phI9WAUjX9YRF4EsA9qEcTrM7IpsGkoMoq2008sOkSnxwQgTlsrlTMjr9lUNAeds4FlZmL9xSV26ebFCPUb8AaEg0YjzbKGZHUcSaDMYRNfinmWsrlCuV3AilegCDkxTXbwtzH5KLCpSjK7A1h050ou3AvEn6Dq8aRsu2Ei-J_olzyQvOIuu1yH3iSeOMot-x-gp_aGkkAvfGYpgOSwlXIwGOh8kzqDd1VVEMyRBjqWhKAEOx" />
+                </div>
+              </FadeUp>
 
-            {/* Pillar 2 */}
-            <FadeUp delay={0.4} yOffset={40} className="md:col-span-4 md:mt-32 group border-t border-hairline-stroke pt-12 space-y-8 hover:bg-charcoal-core/50 transition-colors duration-1000 p-6">
-              <div className="font-data-mono text-data-mono text-on-tertiary-container">02 // TRUST</div>
-              <h3 className="font-headline-lg text-3xl text-platinum-white">Legacy Custody</h3>
-              <p className="font-body-md text-body-md text-on-surface-variant opacity-0 group-hover:opacity-100 transition-opacity duration-1000">
-                Bespoke legal and digital frameworks designed for the hundred-year preservation of Indian family capital.
-              </p>
-              <div className="h-[400px] w-full overflow-hidden bg-charcoal-core">
-                <img alt="Vault mechanism precision" className="w-full h-full object-cover grayscale brightness-50 group-hover:scale-105 group-hover:brightness-100 transition-all duration-[1500ms] ease-out" src="https://lh3.googleusercontent.com/aida/ADBb0uho6ewnOjhWiZ6YNmoP1tvbQxue57QJlUAUJ9nyiNwSIMAS9mJFtV290xxPeY6aKC3E_8LCs8VO6wxrjLL-eXoxqny6ce120Yc7yKL-Csyte6ONULQJ2ytWUyXnTD7jhq3Vtj1EwOr75zdZyOEtATsF30hihf0nVp5ZVkE0ejFaFhyuLnJKVP9DAE9AZM5Js5u78W_zzO4kWY46ls1XYAhI7ouN87UzP1RUo_IP-dy41Db07SgN-sR_Be0" />
-              </div>
-            </FadeUp>
+              {/* Pillar 2 */}
+              <FadeUp delay={0.4} yOffset={40} className="md:col-span-4 md:mt-32 group border-t border-hairline-stroke pt-12 space-y-8 hover:bg-charcoal-core/50 transition-colors duration-1000 p-6 md:p-8 rounded-sm">
+                <div className="font-data-mono text-data-mono text-on-tertiary-container">02 // TRUST</div>
+                <h3 className="font-headline-lg text-4xl text-platinum-white">Legacy Custody</h3>
+                <p className="font-body-md text-body-md text-on-surface-variant opacity-100 md:opacity-0 group-hover:opacity-100 transition-opacity duration-1000 leading-relaxed">
+                  Bespoke legal and digital frameworks designed for the hundred-year preservation of Indian family capital.
+                </p>
+                <div className="h-[450px] w-full overflow-hidden bg-charcoal-core mt-8">
+                  <img alt="Vault mechanism precision" className="w-full h-full object-cover grayscale brightness-50 group-hover:scale-105 group-hover:brightness-100 transition-all duration-[1500ms] ease-out" src="https://lh3.googleusercontent.com/aida/ADBb0uho6ewnOjhWiZ6YNmoP1tvbQxue57QJlUAUJ9nyiNwSIMAS9mJFtV290xxPeY6aKC3E_8LCs8VO6wxrjLL-eXoxqny6ce120Yc7yKL-Csyte6ONULQJ2ytWUyXnTD7jhq3Vtj1EwOr75zdZyOEtATsF30hihf0nVp5ZVkE0ejFaFhyuLnJKVP9DAE9AZM5Js5u78W_zzO4kWY46ls1XYAhI7ouN87UzP1RUo_IP-dy41Db07SgN-sR_Be0" />
+                </div>
+              </FadeUp>
 
-            {/* Pillar 3 */}
-            <FadeUp delay={0.6} yOffset={40} className="md:col-span-4 group border-t border-hairline-stroke pt-12 space-y-8 hover:bg-charcoal-core/50 transition-colors duration-1000 p-6">
-              <div className="font-data-mono text-data-mono text-on-tertiary-container">03 // GROWTH</div>
-              <h3 className="font-headline-lg text-3xl text-platinum-white">Strategic Alpha</h3>
-              <p className="font-body-md text-body-md text-on-surface-variant opacity-0 group-hover:opacity-100 transition-opacity duration-1000">
-                India's current trajectory signals a transition from a capital-importing growth market to a major sovereign creditor. By 2030, the domestic institutional base will exceed $4T, creating a permanent liquidity anchor. True wealth preservation in Bharat requires navigating the Civilizational Premium—the value locked in land, legacy, and lineage that standard Western financial models fail to capture.
-              </p>
-              <div className="h-[350px] w-full overflow-hidden bg-charcoal-core">
-                <img alt="Macro gold watch" className="w-full h-full object-cover grayscale brightness-50 group-hover:scale-105 group-hover:brightness-100 transition-all duration-[1500ms] ease-out" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAsu7kp6kheq4GAE0cz7V3NDdRYVY7gCPUYem_5oxVBIQZYdETDdGK6RaT0ZPeSYGQkGYR2KJQplGRpPaqVUOkcBZYScRHzpdIkcmlrZgXiMHFNqtbomKKtZgSnSumbc4oulPeY56W4x9DOGJjyPEW0yVs5G2p2s1S0jA9wfxpxjc0bDUi2rmzRpfd-pxnjq2JpoNLsfVcsVy3KqbxbkVsR5aloUWy6EM6G-pCVcKbyyPr0gku5-pEuVDu6KrdqANeZZ8eroP_qz8dK" />
-              </div>
-            </FadeUp>
+              {/* Pillar 3 */}
+              <FadeUp delay={0.6} yOffset={40} className="md:col-span-4 group border-t border-hairline-stroke pt-12 space-y-8 hover:bg-charcoal-core/50 transition-colors duration-1000 p-6 md:p-8 rounded-sm">
+                <div className="font-data-mono text-data-mono text-on-tertiary-container">03 // GROWTH</div>
+                <h3 className="font-headline-lg text-4xl text-platinum-white">Strategic Alpha</h3>
+                <p className="font-body-md text-body-md text-on-surface-variant opacity-100 md:opacity-0 group-hover:opacity-100 transition-opacity duration-1000 leading-relaxed">
+                  India's current trajectory signals a transition from a capital-importing growth market to a major sovereign creditor. True wealth preservation requires navigating this Civilizational Premium.
+                </p>
+                <div className="h-[400px] w-full overflow-hidden bg-charcoal-core mt-8">
+                  <img alt="Macro gold watch" className="w-full h-full object-cover grayscale brightness-50 group-hover:scale-105 group-hover:brightness-100 transition-all duration-[1500ms] ease-out" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAsu7kp6kheq4GAE0cz7V3NDdRYVY7gCPUYem_5oxVBIQZYdETDdGK6RaT0ZPeSYGQkGYR2KJQplGRpPaqVUOkcBZYScRHzpdIkcmlrZgXiMHFNqtbomKKtZgSnSumbc4oulPeY56W4x9DOGJjyPEW0yVs5G2p2s1S0jA9wfxpxjc0bDUi2rmzRpfd-pxnjq2JpoNLsfVcsVy3KqbxbkVsR5aloUWy6EM6G-pCVcKbyyPr0gku5-pEuVDu6KrdqANeZZ8eroP_qz8dK" />
+                </div>
+              </FadeUp>
+            </div>
           </div>
         </section>
 
         {/* Act IV: Sovereign Narrative */}
-        <section id="narrative" className="bg-charcoal-core py-[256px] relative overflow-hidden">
+        <section id="narrative" className="bg-charcoal-core py-32 md:py-64 relative overflow-hidden">
           <div className="absolute inset-0 terminal-grid opacity-20 pointer-events-none"></div>
           
-          <div className="px-[24px] md:px-[80px] max-w-[1440px] mx-auto relative z-10">
-            <FadeUp delay={0.1} className="flex flex-col md:flex-row justify-between items-end mb-24">
-              <div className="space-y-4 max-w-2xl">
+          <div className="container mx-auto px-6 md:px-12 lg:px-24 relative z-10">
+            <FadeUp delay={0.1} className="flex flex-col md:flex-row justify-between items-start md:items-end mb-24 gap-8">
+              <div className="space-y-6 max-w-3xl">
                 <div className="font-label-caps text-label-caps text-champagne-accent">SOVEREIGN NARRATIVE // BHARAT_ASCENT</div>
-                <h2 className="font-headline-lg text-headline-lg text-platinum-white">The Emergence of Permanent Capital</h2>
-                <p className="font-body-md text-body-md text-on-surface-variant">Beyond the noise of trade cycles, a fundamental re-architecture of the global financial order is underway.</p>
+                <h2 className="font-headline-lg text-4xl md:text-6xl text-platinum-white leading-tight">The Emergence of Permanent Capital</h2>
+                <p className="font-body-md text-lg text-on-surface-variant max-w-2xl">Beyond the noise of trade cycles, a fundamental re-architecture of the global financial order is underway.</p>
               </div>
-              <div className="font-data-mono text-data-mono text-on-tertiary-container hidden md:block">EPOCH: S_04_IND</div>
+              <div className="font-data-mono text-data-mono text-on-tertiary-container hidden md:block border border-hairline-stroke px-4 py-2 rounded-sm bg-obsidian-deep/30">EPOCH: S_04_IND</div>
             </FadeUp>
             
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-16">
-              <FadeUp delay={0.3} className="space-y-12">
-                <div className="group">
-                  <div className="font-data-mono text-[10px] text-champagne-accent mb-2">ARCHIVE REF: 72-A-92</div>
-                  <h4 className="font-headline-lg text-2xl text-platinum-white mb-4 group-hover:text-champagne-accent transition-colors duration-1000">The Sovereign Creditor Shift</h4>
-                  <p className="font-body-md text-body-md text-on-surface-variant leading-relaxed">India's current trajectory signals a transition from a capital-importing growth market to a major sovereign creditor. By 2030, the domestic institutional base will exceed $4T, creating a permanent liquidity anchor that decouples Indian yield from global volatility.</p>
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-20">
+              <FadeUp delay={0.3} className="space-y-16">
+                <div className="group border-l-2 border-hairline-stroke pl-8 hover:border-champagne-accent transition-colors duration-700">
+                  <div className="font-data-mono text-[10px] text-champagne-accent mb-4 tracking-widest">ARCHIVE REF: 72-A-92</div>
+                  <h4 className="font-headline-lg text-3xl text-platinum-white mb-6 group-hover:text-champagne-accent transition-colors duration-1000">The Sovereign Creditor Shift</h4>
+                  <p className="font-body-md text-body-md text-on-surface-variant leading-relaxed opacity-80">India's current trajectory signals a transition from a capital-importing growth market to a major sovereign creditor. By 2030, the domestic institutional base will exceed $4T, creating a permanent liquidity anchor that decouples Indian yield from global volatility.</p>
                 </div>
-                <div className="group">
-                  <div className="font-data-mono text-[10px] text-champagne-accent mb-2">ARCHIVE REF: 18-B-LEG</div>
-                  <h4 className="font-headline-lg text-2xl text-platinum-white mb-4 group-hover:text-champagne-accent transition-colors duration-1000">The Civilizational Premium</h4>
-                  <p className="font-body-md text-body-md text-on-surface-variant leading-relaxed">True wealth preservation in Bharat requires navigating the 'Civilizational Premium'—the value locked in land, legacy, and lineage that standard Western financial models fail to capture or protect.</p>
+                <div className="group border-l-2 border-hairline-stroke pl-8 hover:border-champagne-accent transition-colors duration-700">
+                  <div className="font-data-mono text-[10px] text-champagne-accent mb-4 tracking-widest">ARCHIVE REF: 18-B-LEG</div>
+                  <h4 className="font-headline-lg text-3xl text-platinum-white mb-6 group-hover:text-champagne-accent transition-colors duration-1000">The Civilizational Premium</h4>
+                  <p className="font-body-md text-body-md text-on-surface-variant leading-relaxed opacity-80">True wealth preservation in Bharat requires navigating the 'Civilizational Premium'—the value locked in land, legacy, and lineage that standard Western financial models fail to capture or protect.</p>
                 </div>
               </FadeUp>
               
-              <FadeUp delay={0.5} className="border-[0.5px] border-hairline-stroke p-12 bg-obsidian-deep/50 space-y-12 backdrop-blur-sm hover:bg-obsidian-deep/70 transition-colors duration-1000">
+              <FadeUp delay={0.5} className="border-[0.5px] border-hairline-stroke p-10 md:p-16 bg-obsidian-deep/50 space-y-12 backdrop-blur-md rounded-sm hover:bg-obsidian-deep/70 hover:border-champagne-accent/30 transition-all duration-1000">
                 <div>
-                  <div className="font-label-caps text-label-caps text-on-tertiary-container mb-8">SOVEREIGN INSIGHTS // Q4 PROJECTION</div>
-                  <div className="space-y-8">
-                    <div className="flex justify-between items-start border-b border-hairline-stroke pb-6 hover:border-champagne-accent/30 transition-colors duration-700">
-                      <div className="space-y-1">
+                  <div className="font-label-caps text-label-caps text-on-tertiary-container mb-12">SOVEREIGN INSIGHTS // Q4 PROJECTION</div>
+                  <div className="space-y-10">
+                    <div className="flex justify-between items-center border-b border-hairline-stroke pb-8 hover:border-champagne-accent/50 transition-colors duration-700">
+                      <div className="space-y-2">
                         <div className="font-data-mono text-data-mono text-platinum-white">GIFT CITY LIQUIDITY</div>
-                        <div className="font-body-md text-xs text-on-tertiary-container">Projected Institutional Inflow</div>
+                        <div className="font-body-md text-sm text-on-tertiary-container opacity-70">Projected Institutional Inflow</div>
                       </div>
-                      <div className="font-data-mono text-2xl text-champagne-accent">+142%</div>
+                      <div className="font-data-mono text-3xl text-champagne-accent tracking-wider">+142%</div>
                     </div>
-                    <div className="flex justify-between items-start border-b border-hairline-stroke pb-6 hover:border-champagne-accent/30 transition-colors duration-700">
-                      <div className="space-y-1">
+                    <div className="flex justify-between items-center border-b border-hairline-stroke pb-8 hover:border-champagne-accent/50 transition-colors duration-700">
+                      <div className="space-y-2">
                         <div className="font-data-mono text-data-mono text-platinum-white">G-SEC REBALANCING</div>
-                        <div className="font-body-md text-xs text-on-tertiary-container">Sovereign Benchmark Shift</div>
+                        <div className="font-body-md text-sm text-on-tertiary-container opacity-70">Sovereign Benchmark Shift</div>
                       </div>
-                      <div className="font-data-mono text-2xl text-champagne-accent">OPTIMIZED</div>
+                      <div className="font-data-mono text-2xl text-champagne-accent tracking-wider">OPTIMIZED</div>
                     </div>
-                    <div className="flex justify-between items-start">
-                      <div className="space-y-1">
+                    <div className="flex justify-between items-center">
+                      <div className="space-y-2">
                         <div className="font-data-mono text-data-mono text-platinum-white">LEGACY BUFFER</div>
-                        <div className="font-body-md text-xs text-on-tertiary-container">Generational Retention Rate</div>
+                        <div className="font-body-md text-sm text-on-tertiary-container opacity-70">Generational Retention Rate</div>
                       </div>
-                      <div className="font-data-mono text-2xl text-champagne-accent">99.8%</div>
+                      <div className="font-data-mono text-3xl text-champagne-accent tracking-wider">99.8%</div>
                     </div>
                   </div>
                 </div>
-                <div className="font-body-md text-sm text-on-tertiary-container italic border-l-[0.5px] border-champagne-accent pl-6">
+                <div className="font-body-md text-sm text-on-tertiary-container italic border-l-2 border-champagne-accent pl-6 opacity-80 mt-12">
                   "The next century is not defined by who grows the fastest, but by who preserves the longest." — Aurelian Protocol
                 </div>
               </FadeUp>
@@ -332,88 +288,90 @@ export default function App() {
         </section>
 
         {/* Act V: The Gates */}
-        <section className="min-h-screen flex items-center justify-center bg-obsidian-deep px-[24px] relative z-10">
-          <div className="max-w-xl w-full text-center space-y-16">
-            <FadeUp delay={0.1} className="space-y-4">
-              <div className="font-label-caps text-label-caps text-champagne-accent">INITIATE INQUIRY</div>
-              <h2 className="font-headline-lg text-headline-lg text-platinum-white">Entry is a Ritual.</h2>
-              <p className="font-body-md text-body-md text-on-surface-variant">We do not accept applications. We honor introductions.</p>
-            </FadeUp>
+        <section className="min-h-screen flex items-center justify-center bg-obsidian-deep py-32 relative z-10">
+          <div className="container mx-auto px-6 md:px-12 lg:px-24 flex justify-center">
+            <div className="max-w-2xl w-full text-center space-y-20">
+              <FadeUp delay={0.1} className="space-y-6">
+                <div className="font-label-caps text-label-caps text-champagne-accent tracking-[0.2em]">INITIATE INQUIRY</div>
+                <h2 className="font-headline-lg text-5xl md:text-7xl text-platinum-white">Entry is a Ritual.</h2>
+                <p className="font-body-md text-lg text-on-surface-variant opacity-80">We do not accept applications. We honor introductions.</p>
+              </FadeUp>
 
-            <AnimatePresence mode="wait">
-              {ritualStep === 1 && (
-                <motion.div 
-                  key="step1"
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -10 }}
-                  transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-                  className="space-y-8"
-                >
-                  <div className="border-b border-hairline-stroke py-4 text-left group">
-                    <label className="font-label-caps text-on-tertiary-container group-focus-within:text-champagne-accent block mb-2 transition-colors duration-500">IDENTIFIER</label>
-                    <input className="bg-transparent border-none w-full font-headline-lg text-2xl text-platinum-white placeholder-white/10 focus:ring-0 outline-none" placeholder="Full Legal Name" type="text" />
-                  </div>
-                  <button 
-                    onClick={() => setRitualStep(2)}
-                    className="breath-button w-full py-6 font-data-mono text-data-mono text-platinum-white border-[0.5px] border-hairline-stroke hover:bg-platinum-white hover:text-obsidian-deep hover:border-platinum-white transition-all duration-700"
+              <AnimatePresence mode="wait">
+                {ritualStep === 1 && (
+                  <motion.div 
+                    key="step1"
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -10 }}
+                    transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+                    className="space-y-10 bg-charcoal-core/30 p-10 rounded-sm border border-hairline-stroke"
                   >
-                    PROCEED
-                  </button>
-                </motion.div>
-              )}
+                    <div className="border-b border-hairline-stroke pb-4 text-left group">
+                      <label className="font-label-caps text-on-tertiary-container group-focus-within:text-champagne-accent block mb-4 transition-colors duration-500">IDENTIFIER</label>
+                      <input className="bg-transparent border-none w-full font-headline-lg text-3xl text-platinum-white placeholder-white/20 focus:ring-0 outline-none" placeholder="Full Legal Name" type="text" />
+                    </div>
+                    <button 
+                      onClick={() => setRitualStep(2)}
+                      className="breath-button w-full py-6 font-data-mono text-data-mono text-platinum-white border-[0.5px] border-hairline-stroke hover:bg-platinum-white hover:text-obsidian-deep transition-all duration-700 tracking-widest uppercase"
+                    >
+                      PROCEED
+                    </button>
+                  </motion.div>
+                )}
 
-              {ritualStep === 2 && (
-                <motion.div 
-                  key="step2"
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -10 }}
-                  transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-                  className="space-y-8"
-                >
-                  <div className="border-b border-hairline-stroke py-4 text-left group">
-                    <label className="font-label-caps text-on-tertiary-container group-focus-within:text-champagne-accent block mb-2 transition-colors duration-500">DOMAIN</label>
-                    <select className="bg-transparent border-none w-full font-headline-lg text-2xl text-platinum-white focus:ring-0 appearance-none cursor-none outline-none">
-                      <option className="bg-obsidian-deep">Private Office</option>
-                      <option className="bg-obsidian-deep">Sovereign Entity</option>
-                      <option className="bg-obsidian-deep">Institutional Trust</option>
-                    </select>
-                  </div>
-                  <button 
-                    className="w-full py-6 font-data-mono text-data-mono bg-platinum-white text-obsidian-deep hover:bg-champagne-accent transition-all duration-700"
+                {ritualStep === 2 && (
+                  <motion.div 
+                    key="step2"
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -10 }}
+                    transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+                    className="space-y-10 bg-charcoal-core/30 p-10 rounded-sm border border-hairline-stroke"
                   >
-                    SUBMIT PETITION
-                  </button>
-                </motion.div>
-              )}
-            </AnimatePresence>
+                    <div className="border-b border-hairline-stroke pb-4 text-left group">
+                      <label className="font-label-caps text-on-tertiary-container group-focus-within:text-champagne-accent block mb-4 transition-colors duration-500">DOMAIN</label>
+                      <select className="bg-transparent border-none w-full font-headline-lg text-3xl text-platinum-white focus:ring-0 outline-none appearance-none cursor-pointer">
+                        <option className="bg-obsidian-deep">Private Office</option>
+                        <option className="bg-obsidian-deep">Sovereign Entity</option>
+                        <option className="bg-obsidian-deep">Institutional Trust</option>
+                      </select>
+                    </div>
+                    <button 
+                      className="w-full py-6 font-data-mono text-data-mono bg-platinum-white text-obsidian-deep hover:bg-champagne-accent transition-all duration-700 tracking-widest uppercase"
+                    >
+                      SUBMIT PETITION
+                    </button>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
           </div>
         </section>
       </main>
 
       <footer className="bg-obsidian-deep border-t border-hairline-stroke relative z-10">
-        <div className="w-full px-[24px] md:px-[80px] py-12 max-w-[1440px] mx-auto flex flex-col md:flex-row justify-between gap-[32px]">
-          <div className="space-y-4">
-            <div className="font-label-caps text-label-caps text-platinum-white">AURELIAN ASSET MANAGEMENT</div>
-            <div className="font-data-mono text-[10px] text-on-tertiary-container">© MMXXIV PERMANENCE GUARANTEED.</div>
+        <div className="container mx-auto px-6 md:px-12 lg:px-24 py-16 flex flex-col md:flex-row justify-between gap-12">
+          <div className="space-y-6">
+            <div className="font-label-caps text-label-caps text-platinum-white tracking-widest">AURELIAN ASSET MANAGEMENT</div>
+            <div className="font-data-mono text-[10px] text-on-tertiary-container tracking-widest">© MMXXIV PERMANENCE GUARANTEED.</div>
           </div>
           
-          <div className="grid grid-cols-2 md:flex gap-12">
-            <div className="flex flex-col gap-2">
-              <span className="font-label-caps text-[10px] text-on-tertiary-container">PROTOCOL</span>
+          <div className="grid grid-cols-2 md:flex gap-16">
+            <div className="flex flex-col gap-4">
+              <span className="font-label-caps text-[10px] text-on-tertiary-container tracking-widest mb-2">PROTOCOL</span>
               <a className="font-data-mono text-data-mono text-on-surface-variant hover:text-champagne-accent transition-colors duration-500" href="#">VAULT</a>
               <a className="font-data-mono text-data-mono text-on-surface-variant hover:text-champagne-accent transition-colors duration-500" href="#">LEDGER</a>
             </div>
-            <div className="flex flex-col gap-2">
-              <span className="font-label-caps text-[10px] text-on-tertiary-container">GOVERNANCE</span>
+            <div className="flex flex-col gap-4">
+              <span className="font-label-caps text-[10px] text-on-tertiary-container tracking-widest mb-2">GOVERNANCE</span>
               <a className="font-data-mono text-data-mono text-on-surface-variant hover:text-champagne-accent transition-colors duration-500" href="#">LEGAL</a>
               <a className="font-data-mono text-data-mono text-on-surface-variant hover:text-champagne-accent transition-colors duration-500" href="#">PRIVACY</a>
             </div>
           </div>
           
-          <div className="text-right">
-            <div className="font-label-caps text-platinum-white">CHENNAI</div>
+          <div className="text-left md:text-right">
+            <div className="font-label-caps text-platinum-white tracking-widest">CHENNAI</div>
           </div>
         </div>
       </footer>
