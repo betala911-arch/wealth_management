@@ -44,6 +44,7 @@ function App() {
       });
     }
     
+    // Normalize rounding to ensure exactly 100
     const total = Object.values(newAlloc).reduce((a, b) => a + b, 0);
     if (Math.abs(total - 100) > 0.01) {
       const diff = 100 - total;
@@ -84,14 +85,18 @@ function App() {
     });
   }, [allocation]);
 
-  // SVG Donut calculations
-  const radius = 100;
+  // Donut chart logic
+  const radius = 120;
   const circumference = 2 * Math.PI * radius;
+  
+  // To match the screenshot: gold (equities) starts roughly on the right, fixed income (slate) left/bottom, alt (white) top left
+  // We'll draw them sequentially in a circle.
   
   const equitiesStroke = (allocation.equities / 100) * circumference;
   const fixedStroke = (allocation.fixedIncome / 100) * circumference;
   const altStroke = (allocation.alternatives / 100) * circumference;
   
+  // Adjust offsets so they line up correctly without gaps.
   const equitiesOffset = 0;
   const fixedOffset = -equitiesStroke;
   const altOffset = fixedOffset - fixedStroke;
@@ -111,9 +116,13 @@ function App() {
     }
   ];
 
+  // Using ~6.0% as an example yield based on sliders being 60,30,10.
+  // The mathematical formula might differ from 6.0% but we use what the formula calculates.
+  const displayYield = (metrics.expectedYield * 100).toFixed(1);
+
   return (
     <>
-      <div className="container">
+      <div className="container" style={{maxWidth: '1000px'}}>
         <nav className="navbar">
           <div className="logo">Aurelian</div>
           <div>
@@ -165,108 +174,112 @@ function App() {
       </div>
 
       <section className="simulator-section">
-        <div className="container">
-          <div className="simulator-header">
-            <h2>Wealth Allocation Simulator</h2>
-          </div>
+        <div className="simulator-card">
+          <h2 className="simulator-title">Wealth Allocation Simulator</h2>
           
-          <div className="simulator-grid">
-            <div className="chart-container">
-              <div className="donut-chart-wrapper">
-                <svg className="donut-svg" viewBox="0 0 240 240">
-                  <circle cx="120" cy="120" r={radius} fill="transparent" stroke="#1c1d21" strokeWidth="16" />
-                  
-                  <circle 
-                    cx="120" cy="120" r={radius} 
-                    className="donut-segment donut-alt"
-                    strokeDasharray={`${altStroke} ${circumference}`}
-                    strokeDashoffset={altOffset}
-                  />
-
-                  <circle 
-                    cx="120" cy="120" r={radius} 
-                    className="donut-segment donut-fixed"
-                    strokeDasharray={`${fixedStroke} ${circumference}`}
-                    strokeDashoffset={fixedOffset}
-                  />
-
-                  <circle 
-                    cx="120" cy="120" r={radius} 
-                    className="donut-segment donut-equities"
-                    strokeDasharray={`${equitiesStroke} ${circumference}`}
-                    strokeDashoffset={equitiesOffset}
-                  />
-                </svg>
-                <div className="chart-center-text">
-                  <div className="chart-center-yield" id="yield-display">{(metrics.expectedYield * 100).toFixed(1)}%</div>
-                  <div className="chart-center-label">EST. ANNUAL YIELD</div>
-                </div>
-              </div>
-
-              <div className="metrics-readouts">
-                <div className="metric-box">
-                  <div className="metric-box-label">Projected Yield</div>
-                  <div className="metric-box-value">{(metrics.expectedYield * 100).toFixed(2)}%</div>
-                </div>
-                <div className="metric-box">
-                  <div className="metric-box-label">Volatility Index</div>
-                  <div className="metric-box-value" id="volatility-display">{(metrics.portfolioVolatility * 100).toFixed(2)}%</div>
-                </div>
+          <div className="simulator-content-centered">
+            
+            <div className="donut-chart-wrapper">
+              
+              {/* Legend Labels Absolutely Positioned */}
+              <div className="donut-label label-alt">Alternatives {allocation.alternatives}%</div>
+              <div className="donut-label label-fixed">Fixed Income {allocation.fixedIncome}%</div>
+              <div className="donut-label label-eq">Equities {allocation.equities}%</div>
+              
+              <svg className="donut-svg" viewBox="0 0 320 320">
+                {/* Background track */}
+                <circle cx="160" cy="160" r={radius} fill="transparent" stroke="#161719" strokeWidth="24" />
+                
+                {/* Alternative */}
+                <circle 
+                  cx="160" cy="160" r={radius} 
+                  className="donut-segment donut-alt"
+                  strokeDasharray={`${altStroke} ${circumference}`}
+                  strokeDashoffset={altOffset}
+                />
+                {/* Fixed Income */}
+                <circle 
+                  cx="160" cy="160" r={radius} 
+                  className="donut-segment donut-fixed"
+                  strokeDasharray={`${fixedStroke} ${circumference}`}
+                  strokeDashoffset={fixedOffset}
+                />
+                {/* Equities */}
+                <circle 
+                  cx="160" cy="160" r={radius} 
+                  className="donut-segment donut-equities"
+                  strokeDasharray={`${equitiesStroke} ${circumference}`}
+                  strokeDashoffset={equitiesOffset}
+                />
+              </svg>
+              <div className="chart-center-text">
+                <div className="chart-center-yield" id="yield-display">{displayYield}%</div>
+                <div className="chart-center-label">EST. ANNUAL YIELD</div>
               </div>
             </div>
 
-            <div className="sliders-container">
-              <div className="slider-group">
-                <div className="slider-label-row">
-                  <span>Equities (%)</span>
-                </div>
-                <div className="slider-track-container">
+            <hr className="sim-divider" />
+            
+            <div className="metrics-readouts-centered">
+              <div className="metric-box-label">Projected Annual Yield</div>
+              <div className="metric-box-value monospace-value">{displayYield}%</div>
+            </div>
+
+            <hr className="sim-divider" />
+
+            <div className="sliders-grid">
+              
+              {/* Row 1, Col 1 */}
+              <div className="slider-row-item">
+                <span className="slider-label">Equities (%)</span>
+                <div className="slider-track-wrap">
                   <input 
                     type="range" min="0" max="100" 
                     value={allocation.equities}
                     onChange={(e) => updateAllocation('equities', e.target.value)}
-                    className="slider-input"
+                    className="slider-input custom-slider"
+                    style={{'--val': `${allocation.equities}%`}}
                   />
-                  <div className="slider-value-box">{allocation.equities}</div>
                 </div>
+                <div className="slider-value-box">{allocation.equities}</div>
               </div>
 
-              <div className="slider-group">
-                <div className="slider-label-row">
-                  <span>Fixed Income (%)</span>
-                </div>
-                <div className="slider-track-container">
+              {/* Row 1, Col 2 */}
+              <div className="slider-row-item">
+                <span className="slider-label">Fixed Income (%)</span>
+                <div className="slider-track-wrap">
                   <input 
                     type="range" min="0" max="100" 
                     value={allocation.fixedIncome}
                     onChange={(e) => updateAllocation('fixedIncome', e.target.value)}
-                    className="slider-input"
+                    className="slider-input custom-slider"
+                    style={{'--val': `${allocation.fixedIncome}%`}}
                   />
-                  <div className="slider-value-box">{allocation.fixedIncome}</div>
                 </div>
+                <div className="slider-value-box">{allocation.fixedIncome}</div>
               </div>
 
-              <div className="slider-group">
-                <div className="slider-label-row">
-                  <span>Alternatives (%)</span>
-                </div>
-                <div className="slider-track-container">
+              {/* Row 2, Col 1 */}
+              <div className="slider-row-item">
+                <span className="slider-label">Alternatives (%)</span>
+                <div className="slider-track-wrap">
                   <input 
                     type="range" min="0" max="100" 
                     value={allocation.alternatives}
                     onChange={(e) => updateAllocation('alternatives', e.target.value)}
-                    className="slider-input"
+                    className="slider-input custom-slider"
+                    style={{'--val': `${allocation.alternatives}%`}}
                   />
-                  <div className="slider-value-box">{allocation.alternatives}</div>
                 </div>
+                <div className="slider-value-box">{allocation.alternatives}</div>
               </div>
+
             </div>
-            
           </div>
         </div>
       </section>
 
-      <div className="container">
+      <div className="container" style={{maxWidth: '1000px'}}>
         <section className="app-section">
           <svg className="app-icon" viewBox="0 0 135 40" fill="none" xmlns="http://www.w3.org/2000/svg">
             <rect width="135" height="40" rx="8" fill="#000" stroke="#fff" strokeWidth="1"/>
