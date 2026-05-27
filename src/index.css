@@ -1,9 +1,10 @@
 @import "tailwindcss";
 
 @theme {
-  --color-obsidian-deep: #050505;
+  /* Colors */
   --color-surface-container: #1e2021;
   --color-surface-container-high: #282a2c;
+  --color-obsidian-deep: #050505;
   --color-background: #111415;
   --color-platinum-white: #F5F5F7;
   --color-champagne-accent: #E5D3B3;
@@ -12,18 +13,51 @@
   --color-on-surface-variant: #c4c7c7;
   --color-on-tertiary-container: #787777;
 
+  /* Spacing */
   --spacing-max-width: 1440px;
   --spacing-margin-desktop: 80px;
   --spacing-margin-mobile: 24px;
   --spacing-gutter: 32px;
   --spacing-unit: 8px;
 
+  /* Font Families */
   --font-data-mono: "JetBrains Mono", monospace;
   --font-label-caps: "Hanken Grotesk", sans-serif;
   --font-display-lg: "Instrument Serif", serif;
   --font-headline-lg: "Instrument Serif", serif;
   --font-body-lg: "Hanken Grotesk", sans-serif;
   --font-body-md: "Hanken Grotesk", sans-serif;
+
+  /* Font Sizes */
+  --text-data-mono: 14px;
+  --text-data-mono--line-height: 20px;
+  --text-data-mono--letter-spacing: 0.1em;
+  --text-data-mono--font-weight: 400;
+
+  --text-label-caps: 12px;
+  --text-label-caps--line-height: 16px;
+  --text-label-caps--letter-spacing: 0.15em;
+  --text-label-caps--font-weight: 600;
+
+  --text-display-lg: 80px;
+  --text-display-lg--line-height: 90px;
+  --text-display-lg--letter-spacing: -0.02em;
+  --text-display-lg--font-weight: 400;
+
+  --text-headline-lg: 48px;
+  --text-headline-lg--line-height: 56px;
+  --text-headline-lg--letter-spacing: 0.05em;
+  --text-headline-lg--font-weight: 400;
+
+  --text-body-lg: 18px;
+  --text-body-lg--line-height: 28px;
+  --text-body-lg--letter-spacing: 0.01em;
+  --text-body-lg--font-weight: 300;
+
+  --text-body-md: 16px;
+  --text-body-md--line-height: 24px;
+  --text-body-md--letter-spacing: 0.01em;
+  --text-body-md--font-weight: 400;
 }
 
 * {
@@ -62,7 +96,7 @@ body {
 }
 
 /* ---------------------------------------------------------
-   CUSTOM ANIMATIONS (Translated from Stitch HTML)
+   CUSTOM ANIMATIONS
 --------------------------------------------------------- */
 @keyframes mechanical-pulse {
   0% { transform: scale(1); filter: brightness(1); }
