@@ -1,11 +1,6 @@
 import { useState, useEffect } from 'react'
 import './index.css'
-import ServicesGrid from './components/ServicesGrid'
 import InvestmentBenefits from './components/InvestmentBenefits'
-import AppsAndTools from './components/AppsAndTools'
-import MarketInsights from './components/MarketInsights'
-import WhyChooseUs from './components/WhyChooseUs'
-import Testimonials from './components/Testimonials'
 
 const ASSET_PROFILES = {
   equities: { yieldExpectation: 0.112, volatility: 0.145 },
@@ -14,7 +9,6 @@ const ASSET_PROFILES = {
 };
 
 function App() {
-  const [activeAccordion, setActiveAccordion] = useState(0);
   const [allocation, setAllocation] = useState({
     equities: 60,
     fixedIncome: 30,
@@ -50,7 +44,6 @@ function App() {
       });
     }
     
-    // Normalize rounding to ensure exactly 100
     const total = Object.values(newAlloc).reduce((a, b) => a + b, 0);
     if (Math.abs(total - 100) > 0.01) {
       const diff = 100 - total;
@@ -91,128 +84,92 @@ function App() {
     });
   }, [allocation]);
 
-  // Donut chart logic
-  const radius = 120;
+  const radius = 140;
   const circumference = 2 * Math.PI * radius;
-  
-  // To match the screenshot: gold (equities) starts roughly on the right, fixed income (slate) left/bottom, alt (white) top left
-  // We'll draw them sequentially in a circle.
   
   const equitiesStroke = (allocation.equities / 100) * circumference;
   const fixedStroke = (allocation.fixedIncome / 100) * circumference;
   const altStroke = (allocation.alternatives / 100) * circumference;
   
-  // Adjust offsets so they line up correctly without gaps.
   const equitiesOffset = 0;
   const fixedOffset = -equitiesStroke;
   const altOffset = fixedOffset - fixedStroke;
 
-  const accordions = [
-    {
-      title: "Bespoke Portfolio Management",
-      content: "Tailored investment strategies designed to align with your personal risk tolerance, liquidity needs, and multi-generational objectives."
-    },
-    {
-      title: "Institutional Asset Allocation",
-      content: "Access to private markets, alternative investments, and complex financial instruments typically reserved for large institutions."
-    },
-    {
-      title: "Generational Wealth Transfer",
-      content: "Comprehensive estate planning, trust structuring, and tax-optimized transfer strategies to preserve your legacy."
-    }
-  ];
-
-  // Using ~6.0% as an example yield based on sliders being 60,30,10.
-  // The mathematical formula might differ from 6.0% but we use what the formula calculates.
   const displayYield = (metrics.expectedYield * 100).toFixed(1);
 
   return (
     <>
-      <div className="container hero-container">
-        <nav className="navbar">
-          <div className="logo">Aurelian</div>
+      <div className="container">
+        <nav className="navbar reveal-animate">
+          <div className="logo">Aurelian.</div>
           <div>
-            <button className="btn-primary" style={{padding: '0.75rem 1.5rem', background: 'transparent', color: '#fff', border: '1px solid var(--border-gold)'}}>Client Login</button>
+            <button className="btn-secondary">Client Portal</button>
           </div>
         </nav>
-
-        <section className="hero">
-          <span className="eyebrow">E X C L U S I V I T Y &nbsp; D E F I N E D</span>
-          <h1 className="title-main">Institutional Sovereignty<br/>over Generational Wealth.</h1>
-          <p className="subtitle">
-            Aurelian engineers bespoke capital allocations, private market access, and advanced risk structures for ultra-high-net-worth individuals and single-family offices.
-          </p>
-          <button className="btn-primary">Become a Client</button>
-
-          <div className="stats-row">
-            <div className="stat-item">
-              <span className="stat-value">$2.4B</span>
-              <span className="stat-label">ASSETS UNDER ADVISEMENT</span>
-            </div>
-            <div className="stat-item">
-              <span className="stat-value">98.4%</span>
-              <span className="stat-label">GENERATIONAL CLIENT RETENTION</span>
-            </div>
-            <div className="stat-item">
-              <span className="stat-value">Exclusively</span>
-              <span className="stat-label">INSTITUTIONAL ARCHITECTURE</span>
-            </div>
-          </div>
-
-          <div className="accordion-container">
-            {accordions.map((item, index) => (
-              <div 
-                key={index} 
-                className={`accordion-item ${activeAccordion === index ? 'active' : ''}`}
-                onClick={() => setActiveAccordion(index === activeAccordion ? -1 : index)}
-              >
-                <div className="accordion-header">
-                  <span className="accordion-title">{item.title}</span>
-                  <div className="accordion-icon"></div>
-                </div>
-                <div className="accordion-content">
-                  {item.content}
-                </div>
-              </div>
-            ))}
-          </div>
-        </section>
       </div>
 
+      <section className="hero">
+        <div className="container" style={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
+          <span className="eyebrow reveal-animate delay-100">Exclusivity Defined</span>
+          <h1 className="title-main reveal-animate delay-200">
+            Command Your Legacy.<br/>The Private Wealth Suite.
+          </h1>
+          <p className="subtitle reveal-animate delay-300">
+            Aurelian engineers bespoke capital allocations, private market access, and advanced risk structures strictly for ultra-high-net-worth individuals and single-family offices.
+          </p>
+          <div className="reveal-animate delay-300">
+            <button className="btn-primary">Apply for Private Access</button>
+          </div>
+        </div>
+      </section>
+
+      <section className="social-proof">
+        <div className="container">
+          <div className="stats-grid">
+            <div className="stat-item reveal-animate delay-100">
+              <span className="stat-value">$2.4B</span>
+              <span className="stat-label">Assets Under Advisement</span>
+            </div>
+            <div className="stat-item reveal-animate delay-200">
+              <span className="stat-value">98.4%</span>
+              <span className="stat-label">Generational Retention</span>
+            </div>
+            <div className="stat-item reveal-animate delay-300">
+              <span className="stat-value">Strictly</span>
+              <span className="stat-label">Institutional Architecture</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <section className="simulator-section">
-        <div className="simulator-card">
-          <h2 className="simulator-title">Wealth Allocation Simulator</h2>
+        <div className="simulator-card luxury-surface reveal-animate delay-100">
+          <h2 className="simulator-title">Algorithmic Wealth Allocation</h2>
           
           <div className="simulator-content-centered">
             
             <div className="donut-chart-wrapper">
               
-              {/* Legend Labels Absolutely Positioned */}
               <div className="donut-label label-alt">Alternatives {allocation.alternatives}%</div>
               <div className="donut-label label-fixed">Fixed Income {allocation.fixedIncome}%</div>
               <div className="donut-label label-eq">Equities {allocation.equities}%</div>
               
-              <svg className="donut-svg" viewBox="0 0 320 320">
-                {/* Background track */}
-                <circle cx="160" cy="160" r={radius} fill="transparent" stroke="#161719" strokeWidth="24" />
-                
-                {/* Alternative */}
+              <svg className="donut-svg" viewBox="0 0 340 340">
+                <circle cx="170" cy="170" r={radius} fill="transparent" stroke="var(--color-obsidian-900)" strokeWidth="16" />
                 <circle 
-                  cx="160" cy="160" r={radius} 
+                  cx="170" cy="170" r={radius} 
                   className="donut-segment donut-alt"
                   strokeDasharray={`${altStroke} ${circumference}`}
                   strokeDashoffset={altOffset}
                 />
-                {/* Fixed Income */}
                 <circle 
-                  cx="160" cy="160" r={radius} 
+                  cx="170" cy="170" r={radius} 
                   className="donut-segment donut-fixed"
                   strokeDasharray={`${fixedStroke} ${circumference}`}
                   strokeDashoffset={fixedOffset}
                 />
-                {/* Equities */}
                 <circle 
-                  cx="160" cy="160" r={radius} 
+                  cx="170" cy="170" r={radius} 
                   className="donut-segment donut-equities"
                   strokeDasharray={`${equitiesStroke} ${circumference}`}
                   strokeDashoffset={equitiesOffset}
@@ -220,24 +177,16 @@ function App() {
               </svg>
               <div className="chart-center-text">
                 <div className="chart-center-yield" id="yield-display">{displayYield}%</div>
-                <div className="chart-center-label">EST. ANNUAL YIELD</div>
+                <div className="chart-center-label">Projected Yield</div>
               </div>
             </div>
-
-            <hr className="sim-divider" />
             
-            <div className="metrics-readouts-centered">
-              <div className="metric-box-label">Projected Annual Yield</div>
-              <div className="metric-box-value monospace-value">{displayYield}%</div>
-            </div>
-
             <hr className="sim-divider" />
 
             <div className="sliders-grid">
               
-              {/* Row 1, Col 1 */}
               <div className="slider-row-item">
-                <span className="slider-label">Equities (%)</span>
+                <span className="slider-label">Equities</span>
                 <div className="slider-track-wrap">
                   <input 
                     type="range" min="0" max="100" 
@@ -247,12 +196,11 @@ function App() {
                     style={{'--val': `${allocation.equities}%`}}
                   />
                 </div>
-                <div className="slider-value-box">{allocation.equities}</div>
+                <div className="slider-value-box">{allocation.equities}%</div>
               </div>
 
-              {/* Row 1, Col 2 */}
               <div className="slider-row-item">
-                <span className="slider-label">Fixed Income (%)</span>
+                <span className="slider-label">Fixed Income</span>
                 <div className="slider-track-wrap">
                   <input 
                     type="range" min="0" max="100" 
@@ -262,12 +210,11 @@ function App() {
                     style={{'--val': `${allocation.fixedIncome}%`}}
                   />
                 </div>
-                <div className="slider-value-box">{allocation.fixedIncome}</div>
+                <div className="slider-value-box">{allocation.fixedIncome}%</div>
               </div>
 
-              {/* Row 2, Col 1 */}
               <div className="slider-row-item">
-                <span className="slider-label">Alternatives (%)</span>
+                <span className="slider-label">Alternatives</span>
                 <div className="slider-track-wrap">
                   <input 
                     type="range" min="0" max="100" 
@@ -277,20 +224,14 @@ function App() {
                     style={{'--val': `${allocation.alternatives}%`}}
                   />
                 </div>
-                <div className="slider-value-box">{allocation.alternatives}</div>
+                <div className="slider-value-box">{allocation.alternatives}%</div>
               </div>
 
             </div>
           </div>
         </div>
       </section>
-
-      <ServicesGrid />
       <InvestmentBenefits />
-      <AppsAndTools />
-      <MarketInsights />
-      <WhyChooseUs />
-      <Testimonials />
     </>
   )
 }
