@@ -1,47 +1,66 @@
 @import "tailwindcss";
 
 @theme {
-  --color-primary: #DEDBC8;
-  --font-serif: "Instrument Serif", serif;
-  --font-sans: "Almarai", -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", sans-serif;
+  --color-forest-900: #0D231F;
+  --color-forest-800: #12332C;
+  --color-copper: #C19B6C;
+  --color-copper-hover: #D4B081;
+  --color-alabaster: #FDFBF7;
+  --color-charcoal: #1A1F1D;
+  --color-gray-soft: #F4F1EA;
+  --color-gray-text: #6B726C;
+
+  --font-serif: "Playfair Display", serif;
+  --font-sans: "Outfit", -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", sans-serif;
 }
 
 * {
-  font-family: var(--font-sans);
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
 body {
-  background-color: #000;
-  color: #DEDBC8;
+  font-family: var(--font-sans);
+  background-color: var(--color-alabaster);
+  color: var(--color-charcoal);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* Remove scrollbar for clean aesthetic */
-::-webkit-scrollbar {
-  display: none;
+/* Base Headings */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-serif);
 }
-* {
-  -ms-overflow-style: none;
-  scrollbar-width: none;
+
+/* Custom Scrollbar for a clean look */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-alabaster);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-forest-800);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-copper);
 }
 
 @layer utilities {
-  .noise-overlay {
-    background-image: url('data:image/svg+xml;base64,PHN2ZyB2aWV3Qm94PSIwIDAgMjAwIDIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZmlsdGVyIGlkPSJub2lzZSI+PGZlVHVyYnVsZW5jZSB0eXBlPSJmcmFjdGFsTm9pc2UiIGJhc2VGcmVxdWVuY3k9IjAuODUiIG51bU9jdGF2ZXM9IjMiIHN0aXRjaFRpbGVzPSJzdGl0Y2giLz48L2ZpbHRlcj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWx0ZXI9InVybCgjbm9pc2UpIiBvcGFjaXR5PSIwLjUiLz48L3N2Zz4=');
-    background-repeat: repeat;
+  .hero-gradient {
+    background: linear-gradient(135deg, var(--color-forest-900) 0%, var(--color-forest-800) 100%);
   }
   
-  .bg-noise {
-    background-image: url('data:image/svg+xml;base64,PHN2ZyB2aWV3Qm94PSIwIDAgMjAwIDIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZmlsdGVyIGlkPSJub2lzZSI+PGZlVHVyYnVsZW5jZSB0eXBlPSJmcmFjdGFsTm9pc2UiIGJhc2VGcmVxdWVuY3k9IjAuOSIgbnVtT2N0YXZlcz0iNCIgc3RpdGNoVGlsZXM9InN0aXRjaCIvPjwvZmlsdGVyPjxyZWN0IHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbHRlcj0idXJsKCNub2lzZSkiIG9wYWNpdHk9IjAuMSIvPjwvc3ZnPg==');
-    background-repeat: repeat;
+  .card-shadow {
+    box-shadow: 0 20px 40px -15px rgba(13, 35, 31, 0.08);
   }
 
-  .text-glow {
-    text-shadow: 0 0 40px rgba(222, 219, 200, 0.2);
+  .nav-blur {
+    background: rgba(253, 251, 247, 0.9);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(13, 35, 31, 0.05);
   }
 }
-
