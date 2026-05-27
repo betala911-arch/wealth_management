@@ -1,5 +1,11 @@
 import { useState, useEffect } from 'react'
 import './index.css'
+import ServicesGrid from './components/ServicesGrid'
+import InvestmentBenefits from './components/InvestmentBenefits'
+import AppsAndTools from './components/AppsAndTools'
+import MarketInsights from './components/MarketInsights'
+import WhyChooseUs from './components/WhyChooseUs'
+import Testimonials from './components/Testimonials'
 
 const ASSET_PROFILES = {
   equities: { yieldExpectation: 0.112, volatility: 0.145 },
@@ -279,24 +285,12 @@ function App() {
         </div>
       </section>
 
-      <div className="container footer-container">
-        <section className="app-section">
-          <svg className="app-icon" viewBox="0 0 135 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <rect width="135" height="40" rx="8" fill="#000" stroke="#fff" strokeWidth="1"/>
-            <text fill="#fff" x="40" y="16" fontSize="8" fontFamily="Inter">Download on the</text>
-            <text fill="#fff" x="40" y="30" fontSize="14" fontFamily="Inter" fontWeight="600">App Store</text>
-            <path d="M25 15C25 19 21 21 21 21C21 21 22 25 20 27C19 28 17 28 16 28C14 28 12 28 11 28C10 28 8 28 7 27C5 25 6 21 6 21C6 21 2 19 2 15C2 12 5 10 7 10C8 10 10 11 11 11C12 11 14 10 15 10C17 10 20 12 21 15C21 15 18 16 18 18C18 20 20 22 22 22C23 22 25 21 25 21ZM15 7C15 5 14 3 13 2C12 1 10 1 10 1C10 1 9 4 11 6C13 8 15 8 15 7Z" fill="#fff"/>
-          </svg>
-
-          <svg className="app-icon" viewBox="0 0 135 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <rect width="135" height="40" rx="8" fill="#000" stroke="#fff" strokeWidth="1"/>
-            <text fill="#fff" x="40" y="16" fontSize="8" fontFamily="Inter">GET IT ON</text>
-            <text fill="#fff" x="40" y="30" fontSize="14" fontFamily="Inter" fontWeight="600">Google Play</text>
-            <path d="M7 6L23 16L7 26L13 16L7 6Z" fill="#fff"/>
-            <path d="M7 6L23 16L13 16L7 6Z" fill="#ccc"/>
-          </svg>
-        </section>
-      </div>
+      <ServicesGrid />
+      <InvestmentBenefits />
+      <AppsAndTools />
+      <MarketInsights />
+      <WhyChooseUs />
+      <Testimonials />
     </>
   )
 }
