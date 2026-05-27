@@ -1,58 +1,113 @@
 @import "tailwindcss";
 
 @theme {
-  --color-obsidian: #0A0A0A;
-  --color-surface: #141414;
-  --color-surface-hover: #1A1A1A;
-  --color-gold: #B59A70;
-  --color-gold-hover: #D0B385;
-  --color-ivory: #EAE8E3;
-  --color-muted: #888888;
+  --color-obsidian-deep: #050505;
+  --color-surface-container: #1e2021;
+  --color-surface-container-high: #282a2c;
+  --color-background: #111415;
+  --color-platinum-white: #F5F5F7;
+  --color-champagne-accent: #E5D3B3;
+  --color-charcoal-core: #121212;
+  --color-hairline-stroke: rgba(245, 245, 247, 0.15);
+  --color-on-surface-variant: #c4c7c7;
+  --color-on-tertiary-container: #787777;
 
-  --font-serif: "Playfair Display", serif;
-  --font-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", sans-serif;
+  --spacing-max-width: 1440px;
+  --spacing-margin-desktop: 80px;
+  --spacing-margin-mobile: 24px;
+  --spacing-gutter: 32px;
+  --spacing-unit: 8px;
+
+  --font-data-mono: "JetBrains Mono", monospace;
+  --font-label-caps: "Hanken Grotesk", sans-serif;
+  --font-display-lg: "Instrument Serif", serif;
+  --font-headline-lg: "Instrument Serif", serif;
+  --font-body-lg: "Hanken Grotesk", sans-serif;
+  --font-body-md: "Hanken Grotesk", sans-serif;
 }
 
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  cursor: none !important; /* Hide default cursor to use custom cursor */
 }
 
 body {
-  font-family: var(--font-sans);
-  background-color: var(--color-obsidian);
-  color: var(--color-ivory);
+  background-color: var(--color-obsidian-deep);
+  color: var(--color-platinum-white);
+  overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
 }
 
-h1, h2, h3, h4, h5, h6 {
-  font-family: var(--font-serif);
-}
-
-/* Scrollbar */
 ::-webkit-scrollbar {
-  width: 8px;
+  width: 4px;
 }
 ::-webkit-scrollbar-track {
-  background: var(--color-obsidian);
+  background: var(--color-obsidian-deep);
 }
 ::-webkit-scrollbar-thumb {
-  background: var(--color-surface-hover);
-  border-radius: 4px;
-}
-::-webkit-scrollbar-thumb:hover {
-  background: var(--color-gold);
+  background: #333537;
 }
 
 @layer utilities {
-  .hero-glow {
-    background: radial-gradient(circle at 50% 0%, rgba(181, 154, 112, 0.08) 0%, transparent 60%);
+  .weighted-fluid-transition {
+    transition: all 0.9s cubic-bezier(0.16, 1, 0.3, 1);
   }
-  
-  .noise-bg {
-    background-image: url('data:image/svg+xml;base64,PHN2ZyB2aWV3Qm94PSIwIDAgMjAwIDIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZmlsdGVyIGlkPSJub2lzZSI+PGZlVHVyYnVsZW5jZSB0eXBlPSJmcmFjdGFsTm9pc2UiIGJhc2VGcmVxdWVuY3k9IjAuODUiIG51bU9jdGF2ZXM9IjMiIHN0aXRjaFRpbGVzPSJzdGl0Y2giLz48L2ZpbHRlcj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWx0ZXI9InVybCgjbm9pc2UpIiBvcGFjaXR5PSIwLjA0Ii8+PC9zdmc+');
-    background-repeat: repeat;
+
+  .terminal-grid {
+    background-image: radial-gradient(rgba(245, 245, 247, 0.05) 1px, transparent 1px);
+    background-size: 40px 40px;
   }
+}
+
+/* ---------------------------------------------------------
+   CUSTOM ANIMATIONS (Translated from Stitch HTML)
+--------------------------------------------------------- */
+@keyframes mechanical-pulse {
+  0% { transform: scale(1); filter: brightness(1); }
+  50% { transform: scale(1.01); filter: brightness(1.05); }
+  100% { transform: scale(1); filter: brightness(1); }
+}
+
+.animate-mechanical {
+  animation: mechanical-pulse 8s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
+@keyframes gear-rotate-slow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes gear-rotate-reverse {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(-360deg); }
+}
+
+.gear-slow { animation: gear-rotate-slow 60s linear infinite; }
+.gear-reverse { animation: gear-rotate-reverse 40s linear infinite; }
+
+@keyframes button-breath {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(229, 211, 179, 0); }
+  50% { box-shadow: 0 0 20px 0 rgba(229, 211, 179, 0.1); }
+}
+
+.breath-button {
+  animation: button-breath 3s ease-in-out infinite;
+}
+
+@keyframes dust-float {
+  0% { transform: translateY(0) translateX(0); opacity: 0; }
+  50% { opacity: 0.4; }
+  100% { transform: translateY(-100px) translateX(20px); opacity: 0; }
+}
+
+.dust-particle {
+  position: absolute;
+  width: 2px;
+  height: 2px;
+  background: rgba(229, 211, 179, 0.4);
+  border-radius: 50%;
+  pointer-events: none;
+  animation: dust-float 8s infinite linear;
 }
